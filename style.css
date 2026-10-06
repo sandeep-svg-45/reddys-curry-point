@@ -1656,6 +1656,19 @@ p { margin-top: 0; }
 
 /* ── PHONE VIEW OPTIMIZATION (iPhone & Android Phones) ────── */
 @media (max-width: 600px) {
+  :root {
+    --ios-glass-blur: blur(30px) saturate(200%);
+  }
+  
+  /* Hardware accelerate canvas & soften mobile blob glare to prevent Android shining */
+  .bg-canvas {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  .blob3, .blob5 {
+    opacity: 0.28;
+  }
+  
   body {
     padding-bottom: 78px;
     padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px));
