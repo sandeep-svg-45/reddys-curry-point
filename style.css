@@ -1658,10 +1658,31 @@ p { margin-top: 0; }
 @media (max-width: 600px) {
   :root {
     --ios-glass-blur: blur(30px) saturate(200%);
+    --ios-glass-shadow: 0 10px 24px -4px rgba(65, 25, 12, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.85);
   }
   
-  /* Hardware accelerate canvas & soften mobile blob glare to prevent Android shining */
+  /* Hardware acceleration to prevent mobile scrolling flickering & repaints */
+  body {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    padding-bottom: 78px;
+    padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+  }
+  
+  /* Hardware accelerate fixed canvas & reduce blob glare */
   .bg-canvas {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+  .blob {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
   }
@@ -1669,25 +1690,72 @@ p { margin-top: 0; }
     opacity: 0.28;
   }
   
-  body {
-    padding-bottom: 78px;
-    padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+  /* Hardware accelerate container cards & remove expensive hover transitions on touch */
+  .glass-card,
+  .glass-stat,
+  .menu-card,
+  .ndb-item,
+  .why-grid article,
+  .price-row > div {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transition: none !important;
   }
   
-  /* Topline Dynamic Island */
+  /* Hardware accelerate hero spinning sunburst & media elements */
+  .hero-media,
+  .sunburst,
+  .hero-img-wrap {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+  
+  /* Optimize fixed scroll progress bar on mobile */
+  .scroll-progress {
+    box-shadow: none !important;
+    transition: none !important;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  /* Topline Dynamic Island with hardware acceleration */
   .topline {
     font-size: 11px;
     width: calc(100% - 20px);
     margin: 8px auto 0;
     padding: 6px 12px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
   }
   
-  /* Floating Pill Navbar */
+  /* Floating Pill Navbar with hardware acceleration */
   .site-header {
     width: calc(100% - 16px);
     top: 8px;
     margin: 6px auto 0;
     border-radius: var(--ios-pill);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    box-shadow: 0 8px 24px -4px rgba(65, 25, 12, 0.12), inset 0 1px 1px #ffffff;
+    transition: none !important;
   }
   .nav {
     height: 60px;
@@ -1876,7 +1944,7 @@ p { margin-top: 0; }
   .phone-glass-pill .pg-text strong { font-size: 18px; }
   .footer-bottom-bar { flex-direction: column; text-align: center; gap: 8px; }
   
-  /* Apple iOS Native Bottom Dock */
+  /* Apple iOS Native Bottom Dock with hardware acceleration */
   .mobile-actions {
     display: grid;
     position: fixed;
@@ -1885,11 +1953,17 @@ p { margin-top: 0; }
     height: calc(60px + env(safe-area-inset-bottom, 0px));
     padding-bottom: env(safe-area-inset-bottom, 0px);
     grid-template-columns: 1fr 1fr;
-    backdrop-filter: blur(36px) saturate(220%) brightness(105%);
-    -webkit-backdrop-filter: blur(36px) saturate(220%) brightness(105%);
-    background: rgba(28, 6, 9, 0.92);
+    backdrop-filter: blur(28px) saturate(200%);
+    -webkit-backdrop-filter: blur(28px) saturate(200%);
+    background: rgba(28, 6, 9, 0.94);
     border-top: 1.5px solid rgba(255, 255, 255, 0.24);
-    box-shadow: 0 -10px 36px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
   }
   .mobile-actions a {
     height: 60px;
@@ -1928,6 +2002,12 @@ p { margin-top: 0; }
     width: 48px;
     height: 48px;
     font-size: 20px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
   }
 }
 
